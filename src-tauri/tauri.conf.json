@@ -14,15 +14,15 @@
     "windows": [
       {
         "title": "PetPet",
-        "width": 200,
-        "height": 200,
+        "width": 800,
+        "height": 600,
         "resizable": false,
         "fullscreen": false,
+        "maximized": true,
         "decorations": false,
         "transparent": true,
         "alwaysOnTop": true,
-        "skipTaskbar": true,
-        "center": true
+        "skipTaskbar": true
       }
     ],
     "security": {
