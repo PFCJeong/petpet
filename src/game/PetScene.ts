@@ -1,9 +1,12 @@
 import Phaser from 'phaser'
+// ⭐ Tauri API - Rust 백엔드와 통신
+import { invoke } from '@tauri-apps/api/core'
 
 // ============================================================
 // PetScene - 고양이가 살아있는 게임 씬
 // ============================================================
 // 이제 전체 화면을 사용하므로, 고양이는 화면 어디든 갈 수 있음!
+// 클릭 통과: 고양이 영역만 클릭 가능, 나머지는 통과
 // ============================================================
 
 export class PetScene extends Phaser.Scene {
@@ -14,6 +17,22 @@ export class PetScene extends Phaser.Scene {
 
   constructor() {
     super({ key: 'PetScene' })
+  }
+
+  // ⭐ 고양이 위치를 Rust 백엔드로 전송
+  // Rust에서 마우스가 고양이 위에 있는지 판단하여 클릭 통과 여부 결정
+  private updatePetBounds() {
+    const scale = this.pet.scale  // 2
+    const width = 64 * scale      // 실제 표시 크기
+    const height = 64 * scale
+
+    // ⭐ Tauri 커맨드 호출 - 고양이 위치 업데이트
+    invoke('update_pet_bounds', {
+      x: this.pet.x,
+      y: this.pet.y,
+      width: width,
+      height: height
+    }).catch(console.error)
   }
 
   preload() {
@@ -42,6 +61,9 @@ export class PetScene extends Phaser.Scene {
 
     this.pet.play('sleep')
 
+    // ⭐ 초기 위치를 Rust로 전송
+    this.updatePetBounds()
+
     // 인터랙티브 설정
     this.pet.setInteractive({ useHandCursor: true })
 
@@ -58,6 +80,8 @@ export class PetScene extends Phaser.Scene {
           pointer.x - this.dragStartX,
           pointer.y - this.dragStartY
         )
+        // ⭐ 드래그 중 위치 업데이트
+        this.updatePetBounds()
       }
     })
 
