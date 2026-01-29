@@ -4,10 +4,9 @@
 
 ## 구현 포인트
 - [x] 투명 배경의 전체 화면 윈도우 (1-1.md)
-- [x] 윈도우 프레임 없음 (frameless) - decorations: false
-- [x] 항상 최상위 표시 (always on top) - alwaysOnTop: true
+- [x] 윈도우 프레임 없음 (frameless) - decorations: false (1-1.md)
+- [x] 항상 최상위 표시 (always on top) - alwaysOnTop: true (1-1.md)
 - [x] 마우스 클릭 통과 (click-through) - 고양이 영역 제외 (1-2.md)
-- [ ] 화면 경계 내에서 자유로운 이동
 
 ## 해결 필요
 - [ ] 고양이 스프라이트 렌더링 이상 (테두리 분리 현상)
